@@ -1719,9 +1719,7 @@ WHERE emp_id IN (
                   FROM employee
                   WHERE manager_id IS NOT NULL
                 )
-
 UNION
-
 SELECT e.emp_id 사원번호
       ,e.emp_name 직원명
       ,d.dept_title 부서명
@@ -1759,10 +1757,334 @@ FROM employee e
 ;
 
 -- 96.
+-- EMPLOYEE, DEPARTMENT, JOB 테이블을 조인하여 조회하시오
+-- 사원의 나이와 성별을 구하여 출력하고,
+-- 주민등록번호 뒷자리 첫글자를 제외하고 마스킹하여 출력하시오.
+
 SELECT * FROM employee;
 SELECT * FROM department;
 SELECT * FROM job;
 
+SELECT e.emp_id 사원번호
+      ,e.emp_name 직원명
+      ,d.dept_title 부서명
+      ,j.job_name 직급명
+      , CASE
+            WHEN emp_id IN (
+                              SELECT DISTINCT manager_id
+                              FROM employee
+                              WHERE manager_id IS NOT NULL
+                           )
+            THEN '매니저'
+            ELSE '사원'
+      END 구분
+      -- 성별 (주민등록번호 뒷자리 첫글자)
+      -- 1,3(남자), 2,4(여자)
+      , CASE
+            WHEN SUBSTR(emp_no, 8, 1) IN ('1','3') THEN '남자'
+            WHEN SUBSTR(emp_no, 8, 1) IN ('2','4') THEN '여자'
+       END 성별
+      -- 나이
+      , TO_CHAR(sysdate, 'YYYY')
+      -
+      ( CASE
+            -- 1900년대 출생
+            WHEN SUBSTR(emp_no, 8, 1) IN ('1','2') THEN '19'
+            -- 2000년대 출생
+            WHEN SUBSTR(emp_no, 8, 1) IN ('3','4') THEN '20'
+      END || SUBSTR(emp_no, 1, 2) ) + 1 나이        -- 85, 02
+      --1985, 2002
+
+      -- 주민번호(마스킹)
+      -- 861015-1356452 (14)
+      ,RPAD( SUBSTR(emp_no, 1, 8), 14, '*' ) 주민등록번호
+FROM employee e
+      LEFT JOIN department d ON e.dept_code = d.dept_id
+      JOIN job j USING(job_code)
+;
+-- USING : 조인하고자 하는 두 테이블의 컬럼명이 같으면,
+--         ON 키워드 대신 조인 조건을 간단하게 작성하는 키워드
+
+---------------------------------------------------------------------
+-- 주민등록번호 뒷자리 첫글자 가져오기
+SELECT SUBSTR(emp_no, 8, 1)
+FROM employee;
+
+-- 주민등록번호에서 출생년도 추출하기
+-- 1985.05.04  --> 850504 -- 뒷 첫 1,2
+-- 2002.10.06  --> 021006 -- 뒷 첫 3,4
+SELECT emp_name,
+      CASE
+      -- 1900년대 출생
+      WHEN SUBSTR(emp_no, 8, 1) IN ('1','2') THEN '19'
+      -- 2000년대 출생
+      WHEN SUBSTR(emp_no, 8, 1) IN ('3','4') THEN '20'
+      END || SUBSTR(emp_no, 1, 2) 출생년도        -- 85, 02
+      --1985, 2002
+FROM employee;
+
+-- 현재연도 구하기
+SELECT TO_CHAR(sysdate, 'YYYY') 현재연도
+FROM dual;
+
+-- 나이 구하기
+-- → 현재연도 - 출생년도 + 1 = 나이
+SELECT emp_name,
+      TO_CHAR(sysdate, 'YYYY')
+      -
+      ( CASE
+            -- 1900년대 출생
+            WHEN SUBSTR(emp_no, 8, 1) IN ('1','2') THEN '19'
+            -- 2000년대 출생
+            WHEN SUBSTR(emp_no, 8, 1) IN ('3','4') THEN '20'
+      END || SUBSTR(emp_no, 1, 2) ) + 1 나이        -- 85, 02
+      --1985, 2002
+FROM employee;
+--------------------------------------------------------------
+
+-- 나이 (해)
+
+-- 만 나이???
+SELECT emp_name
+      , "만 나이"
+FROM employee;
+
+--
+SELECT TRUNC( 
+      MONTHS_BETWEEN( sysdate, TO_DATE(
+                        CASE
+                              WHEN SUBSTR(emp_no, 8, 1) IN ('1','2') THEN '19'
+                              WHEN SUBSTR(emp_no, 8, 1) IN ('3','4') THEN '20'
+                              END || SUBSTR(emp_no, 1, 6), 'YYYYMMDD')         -- 19850504
+                  ) /12 ) 만나이 
+
+FROM employee;
+
+-- 97.
+-- 96번 조회결과에 
+-- 순번, 만나이, 근속연수, 입사일자, 연봉을 추가하시오.
+
+SELECT ROWNUM 순번
+      ,e.emp_id 사원번호
+      ,e.emp_name 직원명
+      ,d.dept_title 부서명
+      ,j.job_name 직급명
+      , CASE
+            WHEN emp_id IN (
+                              SELECT DISTINCT manager_id
+                              FROM employee
+                              WHERE manager_id IS NOT NULL
+                           )
+            THEN '매니저'
+            ELSE '사원'
+      END 구분
+      -- 성별 (주민등록번호 뒷자리 첫글자)
+      -- 1,3(남자), 2,4(여자)
+      , CASE
+            WHEN SUBSTR(emp_no, 8, 1) IN ('1','3') THEN '남자'
+            WHEN SUBSTR(emp_no, 8, 1) IN ('2','4') THEN '여자'
+       END 성별
+      -- 나이
+      , TO_CHAR(sysdate, 'YYYY')
+      -
+      ( CASE
+            -- 1900년대 출생
+            WHEN SUBSTR(emp_no, 8, 1) IN ('1','2') THEN '19'
+            -- 2000년대 출생
+            WHEN SUBSTR(emp_no, 8, 1) IN ('3','4') THEN '20'
+      END || SUBSTR(emp_no, 1, 2) ) + 1 나이        -- 85, 02
+      -- 만나이
+      ,TRUNC( 
+            MONTHS_BETWEEN( sysdate, TO_DATE(
+                  CASE
+                        WHEN SUBSTR(emp_no, 8, 1) IN ('1','2') THEN '19'
+                        WHEN SUBSTR(emp_no, 8, 1) IN ('3','4') THEN '20'
+                  END || SUBSTR(emp_no, 1, 6), 'YYYYMMDD')         -- 19850504
+                  ) /12 ) 만나이 
+
+      -- 근속연수 : 현재일자 - 입사일자 [연도]
+      ,TRUNC(MONTHS_BETWEEN(sysdate, hire_date) / 12) 근속연수
+      -- 주민번호(마스킹)
+      -- 861015-1356452 (14)
+      ,RPAD( SUBSTR(emp_no, 1, 8), 14, '*' ) 주민등록번호
+      -- 입사일자
+      ,TO_CHAR( hire_date, 'YYYY.MM.DD' ) 입사일자
+      -- 연봉 : (급여(salary) + (급여*보너스)) * 12
+      ,TO_CHAR( ( salary + NVL( (salary*bonus), 0) ) * 12, '999,999,999,999' ) 연봉
+
+FROM employee e
+      LEFT JOIN department d ON e.dept_code = d.dept_id
+      JOIN job j USING(job_code)
+;
 
 
+-- 뷰 생성하기
+-- 사원, 부서 테이블 조인 조회한 결과를 뷰로 생성
+-- 1. 사원, 부서 테이블 조인
+SELECT e.emp_id
+      ,e.emp_name
+      ,d.dept_id
+      ,d.dept_title
 
+FROM employee e
+     LEFT JOIN department d
+     ON e.dept_code = d.dept_id
+;
+-- 2. 뷰 생성
+CREATE VIEW v_emp_dept AS
+SELECT e.emp_id
+      ,e.emp_name
+      ,d.dept_id
+      ,d.dept_title
+FROM employee e
+     LEFT JOIN department d
+     ON e.dept_code = d.dept_id
+;
+
+SELECT * FROM v_emp_dept;
+
+-- 뷰 삭제
+DROP VIEW v_emp_dept;
+
+
+-- 98.
+-- employee, department 테이블을 조인하여,
+-- 주민번호, 입사일자, 급여, 연봉을 조회하시오.
+-- CREATE OR REPLACE 객체
+-- - 없으면, 새로 생성
+-- - 있으면, 대체 (기존에 생성 되어 있어도 에러발생x)
+CREATE OR REPLACE VIEW VE_EMP_DEPT AS
+SELECT e.emp_id
+      ,e.emp_name
+      ,d.dept_id
+      ,d.dept_title
+      ,e.email
+      ,e.phone
+      -- 주민등록번호
+      ,RPAD( SUBSTR(emp_no, 1, 8), 14, '*' ) emp_no
+      -- 입사일자
+      ,TO_CHAR( hire_date, 'YYYY.MM.DD' ) hire_date
+      -- 급여
+      ,TO_CHAR( salary, '999,999,999' ) salary
+      -- 연봉
+      ,TO_CHAR( (salary + NVL( salary * bonus, 0)) * 12, '999,999,999,999') yr_salary
+FROM employee e
+     LEFT JOIN department d ON (e.dept_code = d.dept_id)
+;
+
+SELECT *
+FROM VE_EMP_DEPT;
+
+
+-- 시퀀스 생성
+/*
+      CREATE SEQUENCE 시퀀스명
+      INCREMENT BY 증감숫자
+      START WITH 시작숫자
+      MINVALUE 최솟값
+      MAXVALUE 최댓값;
+*/
+
+-- 예시
+CREATE SEQUENCE my_seq
+INCREMENT BY 1
+START WITH 1
+MINVALUE 1
+MAXVALUE 10000;
+
+-- 현재 순번
+SELECT my_seq.currval FROM dual;
+
+-- 다음 순번
+SELECT my_seq.nextval FROM dual;
+
+-- 시퀀스 삭제
+DROP SEQUENCE my_seq;
+
+-- 99.
+-- 시퀀스를 생성하시오.
+-- SEQ_MS_USER
+-- SEQ_MS_BOARD
+-- SEQ_MS_FILE
+-- SEQ_MS_REPLY
+-- (시작: 1, 증가값: 1, 최솟값: 1, 최댓값: 1000000)
+-- 시퀀스 생성
+CREATE SEQUENCE seq_ms_user
+INCREMENT BY 1
+START WITH 1
+MINVALUE 1
+MAXVALUE 10000;
+
+CREATE SEQUENCE seq_ms_board
+INCREMENT BY 1
+START WITH 1
+MINVALUE 1
+MAXVALUE 10000;
+
+CREATE SEQUENCE seq_ms_file
+INCREMENT BY 1
+START WITH 1
+MINVALUE 1
+MAXVALUE 10000;
+
+CREATE SEQUENCE seq_ms_reply
+INCREMENT BY 1
+START WITH 1
+MINVALUE 1
+MAXVALUE 10000;
+
+-- 100.
+-- SEQ_MS_USER 의 다음 번호와 현재 번호를 출력하시오.
+SELECT SEQ_MS_USER.nextval FROM dual;
+SELECT SEQ_MS_USER.currval FROM dual;
+
+-- 101.
+-- SEQ_MS_USER를 삭제하시오.
+DROP SEQUENCE seq_ms_user;
+
+
+-- 102.
+-- SEQ_MS_USER 를 이용하여, MS_USER 의 user_no 가
+-- 시퀀스 번호로 적용될 수 있도록 데이터를 추가해보시오.
+-- * 날짜 포맷 지정 필요 *
+TRUNCATE TABLE MS_USER;
+
+INSERT INTO MS_USER(user_no, user_id, user_pw, user_name,
+                  birth, tel, address, reg_date, upd_date, ctz_no, gender)
+VALUES (
+            SEQ_MS_USER.nextval, 'human', '123456', '김휴먼',
+            '2002/01/01', '010-1234-1234', '서울 영등포', sysdate, sysdate,
+            '020101-1234567', '남'
+);
+
+
+INSERT INTO MS_USER(user_no, user_id, user_pw, user_name,
+                  birth, tel, address, reg_date, upd_date, ctz_no, gender)
+VALUES (
+            SEQ_MS_USER.nextval, 'human2', '123456', '박휴먼',
+            '2002/01/01', '010-1111-1111', '서울 강남', sysdate, sysdate,
+            '130101-2223333', '여'
+);
+
+SELECT * FROM ms_user;
+
+
+-- 103. 
+-- 시퀀스 SEQ_MS_USER의 최댓값을 100,000,000 으로 수정하시오.
+ALTER SEQUENCE SEQ_MS_USER MAXVALUE 100000000;
+
+-- 104.
+-- USER_IND_COLUMNS 테이블을 조회하시오.
+-- * 사용자가 정의한 인덱스 정보가 들어있다.
+SELECT index_name, table_name, column_name
+FROM user_ind_columns;
+
+-- 105.
+-- MS_USER 테이블의 USER_NAME 에 대한
+-- 인덱스 IDX_MS_USER_NAME 을 생성하시오.
+
+-- 인덱스 생성
+CREATE INDEX IDX_MS_USER_NAME ON MS_USER(user_name);
+
+-- 인덱스 삭제
+DROP INDEX IDX_MS_USER_NAME;
