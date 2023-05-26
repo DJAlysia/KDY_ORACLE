@@ -2088,3 +2088,171 @@ CREATE INDEX IDX_MS_USER_NAME ON MS_USER(user_name);
 
 -- 인덱스 삭제
 DROP INDEX IDX_MS_USER_NAME;
+
+
+
+-- 추가 실습
+SELECT employee_id 사원번호
+      ,FIRST_NAME 이름
+      ,COALESCE( salary + salary * commission_pct, salary, 0 ) 최종급여
+      ,commission_pct
+FROM employees;
+
+
+-- LNNVL(조건식)
+-- TRUE --> FALSE
+-- FALSE, NULL --> TRUE
+SELECT employee_id, commission_pct
+FROM employees
+WHERE LNNVL (commission_pct >= 0.2);
+
+SELECT employee_id, commission_pct
+FROM employees
+WHERE NVL (commission_pct, 0) < 0.2;
+
+SELECT employee_id, commission_pct
+FROM employees
+WHERE commission_pct <= 0.2;
+
+-- NULLIF()
+SELECT employee_id
+      ,TO_CHAR(start_date, 'YYYY') start_year
+      ,TO_CHAR(end_date, 'YYYY') end_year
+      ,NULLIF(TO_CHAR(end_date, 'YYYY'), TO_CHAR(start_date, 'YYYY'))
+FROM job_history;
+
+
+-- 그룹 관련 함수
+
+-- ROLLUP
+-- 부서별, 직급별 급여 최댓값, 합계, 평균
+-- * ROLLUP 미사용
+SELECT dept_code, job_code
+      ,COUNT(*), MAX(salary), SUM(salary), TRUNC(AVG(salary), 2)
+FROM employee
+GROUP BY dept_code, job_code
+ORDER BY dept_code, job_code
+;
+
+-- * ROLLUP 사용
+-- : 그룹 기준으로 집계한 결과와 추가적으로 총 집계 정보 출력하는 함수
+SELECT dept_code, job_code
+      ,COUNT(*), MAX(salary), SUM(salary), TRUNC(AVG(salary), 2)
+FROM employee
+WHERE dept_code IS NOT NULL
+  AND dept_code IS NOT NULL
+GROUP BY ROLLUP (dept_code, job_code)
+ORDER BY dept_code, job_code
+;
+
+-- CUBE
+SELECT dept_code, job_code
+      ,COUNT(*), MAX(salary), SUM(salary), TRUNC(AVG(salary), 2)
+FROM employee
+WHERE dept_code IS NOT NULL
+  AND dept_code IS NOT NULL
+GROUP BY CUBE (dept_code, job_code)
+ORDER BY dept_code, job_code
+;
+
+-- GROUPING SETS()
+-- 각각 부서별, 직급별 별도로 인원 수
+SELECT dept_code, job_code, COUNT(*)
+FROM employee
+GROUP BY GROUPING SETS( (dept_code), (job_code ))
+ORDER BY dept_code, job_code
+;
+
+-- 특정 부서의 직급별 인원 수
+SELECT dept_code, job_code, COUNT(*)
+FROM employee
+GROUP BY dept_code, job_code
+ORDER BY dept_code, job_code
+;
+
+-- GROUPING
+SELECT dept_code
+      ,job_code
+      ,COUNT(*)
+      ,MAX(salary)
+      ,SUM(salary)
+      ,TRUNC(AVG(salary), 2)
+      ,GROUPING(dept_code) "부서코드 그룹여부"
+      ,GROUPING(job_code) "직급코드 그룹여부"
+FROM employee
+WHERE dept_code IS NOT NULL
+  AND dept_code IS NOT NULL
+GROUP BY CUBE (dept_code, job_code)
+ORDER BY dept_code, job_code
+;
+
+-- LISTAGG
+SELECT dept_code 부서코드
+      ,LISTAGG( emp_name, ', ')
+      WITHIN GROUP(ORDER BY emp_name) "부서별 사원이름목록"
+FROM employee
+GROUP BY dept_code
+ORDER BY dept_code
+;
+
+-- PIVOT
+-- 직급을 행에 표시, 부서는 열에 그룹화하여 최고급여를 출력하시오.
+SELECT *
+FROM        (
+            SELECT dept_code, job_code, salary
+            FROM employee
+            )
+PIVOT       (
+            MAX(salary)
+            -- 열에 올릴 컬럼들
+            FOR dept_code IN ('D1','D2','D3','D4','D5','D6','D7','D8','D9')
+            /*           
+            FOR dept_code IN  (
+                              SELECT LISTAGG(dept_id, ',')
+                              FROM department
+                              )
+            )
+            */
+            )
+ORDER BY job_code;
+                              
+SELECT *
+FROM        (
+            SELECT dept_code, job_code, salary
+            FROM employee
+            )
+PIVOT       (
+            COUNT(*)
+            -- 열에 올릴 컬럼들
+            FOR dept_code IN ('D1','D2','D3','D4','D5','D6','D7','D8','D9')
+            /*           
+            FOR dept_code IN  (
+                              SELECT LISTAGG(dept_id, ',')
+                              FROM department
+                              )
+            )
+            */
+            )
+ORDER BY job_code;
+
+-- UNPIVOT
+SELECT *
+FROM (
+      SELECT dept_code
+            ,MAX( DECODE(job_code, 'J1', salary ) ) J1
+            ,MAX( DECODE(job_code, 'J2', salary ) ) J2
+            ,MAX( DECODE(job_code, 'J3', salary ) ) J3
+            ,MAX( DECODE(job_code, 'J4', salary ) ) J4
+            ,MAX( DECODE(job_code, 'J5', salary ) ) J5
+            ,MAX( DECODE(job_code, 'J6', salary ) ) J6
+            ,MAX( DECODE(job_code, 'J7', salary ) ) J7
+      FROM employee
+      GROUP BY dept_code
+      ORDER BY dept_code
+      )
+     UNPIVOT (
+           salary
+           FOR job_code IN (J1, J2, J3, J4, J5, J6, J7)
+             )
+;
+
