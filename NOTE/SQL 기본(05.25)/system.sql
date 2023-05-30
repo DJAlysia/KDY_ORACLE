@@ -1,0 +1,15 @@
+
+-- 기초 실습 계정
+ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+
+CREATE USER student IDENTIFIED BY 123456;
+
+ALTER USER student DEFAULT TABLESPACE users;
+
+ALTER USER student QUOTA UNLIMITED ON users;
+
+GRANT connect, resource TO student;
+GRANT dba TO student;
+
+GRANT CREATE VIEW TO student;
+GRANT DROP VIEW TO student;
