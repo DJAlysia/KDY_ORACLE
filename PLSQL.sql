@@ -391,6 +391,102 @@ ORDER BY start_date ASC;
 SELECT * FROM jobs;
 
 
+-- OUT 파라미터로 프로시저 사용하기
+CREATE OR REPLACE PROCEDURE pro_out_emp (
+    IN_EMP_ID IN employee.emp_id%TYPE,
+    OUT_RESULT_STR OUT CLOB
+)
+IS
+    V_EMP employee%ROWTYPE;
+    -- %ROWTYPE
+    -- : 해당 테이블 또는 뷰의 컬럼들을 참조타입으로 선언
+BEGIN
+    SELECT * INTO V_EMP
+      FROM employee
+     WHERE emp_id = IN_EMP_ID;
+
+     OUT_RESULT_STR := V_EMP.emp_id
+                        || '/' || V_EMP.emp_name
+                        || '/' || V_EMP.salary;
+END;
+/
+
+SET SERVEROUTPUT ON;
+DECLARE
+    out_result_str CLOB;
+BEGIN
+    pro_out_emp( '200', out_result_str );
+    DBMS_OUTPUT.PUT_LINE( out_result_str );
+END;
+/
 
 
+
+
+-- 프로시저로 OUT 파라미터 2개 이상 사용하기
+CREATE OR REPLACE PROCEDURE pro_out_mul (
+    IN_EMP_ID IN employee.emp_id%TYPE,
+    OUT_DEPT_CODE OUT employee.dept_code%TYPE,
+    OUT_JOB_CODE OUT employee.job_code%TYPE
+)
+IS
+    V_EMP employee%ROWTYPE;
+BEGIN
+    SELECT * INTO V_EMP
+    FROM employee
+    WHERE emp_id = IN_EMP_ID;
+
+    OUT_DEPT_CODE := V_EMP.dept_code;
+    OUT_JOB_CODE := V_EMP.job_code;
+END;
+/
+
+
+-- 프로시저 호출
+-- 1) 매개변수가 없거나, IN 매개변수 만 : EXECUTE 프로시저명(인자1, 인자2);
+-- 2) OUT 매개변수                     : PL/SQL 블록 안에서 호출
+
+-- EXECUTE pro_out_mul( 1, 2, 3 )     -- OUT 파라미터가 있어서, 블록 안에서 호출해야함
+DECLARE
+    out_dept_code employee.dept_code%TYPE;
+    out_job_code employee.job_code%TYPE;
+BEGIN
+    pro_out_mul('200', out_dept_code, out_job_code);
+    DBMS_OUTPUT.PUT_LINE( out_dept_code );
+    DBMS_OUTPUT.PUT_LINE( out_job_code );
+END;
+/
+
+
+-- 프로시저에서 예외처리
+CREATE OR REPLACE PROCEDURE pro_print_emp (
+    IN_EMP_ID IN employee.emp_id%TYPE
+)
+IS
+    STR_EMP_INFO CLOB;
+    V_EMP employee%ROWTYPE;
+BEGIN
+    SELECT * INTO V_EMP
+    FROM employee
+    WHERE emp_id = IN_EMP_ID;
+    -- CHR(10) : 줄바꿈(엔터)
+    STR_EMP_INFO := '사원정보' || CHR(10) ||
+                    '사원명 : ' || V_EMP.emp_name || CHR(10) ||
+                    '이메일 : ' || V_EMP.email || CHR(10) ||
+                    '전화번호 : ' || V_EMP.phone;
+
+    DBMS_OUTPUT.PUT_LINE(STR_EMP_INFO);
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            BEGIN
+            STR_EMP_INFO := '존재하지 않는 사원ID 입니다.';
+            DBMS_OUTPUT.PUT_LINE(STR_EMP_INFO);
+            END;
+END;
+/
+
+EXECUTE pro_print_emp('200');
+-- 존재하지 않는 사원번호 (예외발생)
+EXECUTE pro_print_emp('300');   
 
