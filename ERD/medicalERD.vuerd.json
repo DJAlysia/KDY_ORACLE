@@ -1,0 +1,1078 @@
+{
+  "canvas": {
+    "version": "2.2.11",
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": 0,
+    "scrollLeft": 0,
+    "zoomLevel": 0.9,
+    "show": {
+      "tableComment": true,
+      "columnComment": true,
+      "columnDataType": true,
+      "columnDefault": true,
+      "columnAutoIncrement": false,
+      "columnPrimaryKey": true,
+      "columnUnique": false,
+      "columnNotNull": true,
+      "relationship": true
+    },
+    "database": "MySQL",
+    "databaseName": "",
+    "canvasType": "ERD",
+    "language": "GraphQL",
+    "tableCase": "pascalCase",
+    "columnCase": "camelCase",
+    "highlightTheme": "VS2015",
+    "bracketType": "none",
+    "setting": {
+      "relationshipDataTypeSync": true,
+      "relationshipOptimization": false,
+      "columnOrder": [
+        "columnName",
+        "columnDataType",
+        "columnNotNull",
+        "columnUnique",
+        "columnAutoIncrement",
+        "columnDefault",
+        "columnComment"
+      ]
+    },
+    "pluginSerializationMap": {}
+  },
+  "table": {
+    "tables": [
+      {
+        "name": "Patient",
+        "comment": "환자",
+        "columns": [
+          {
+            "name": "Patient_ID",
+            "comment": "환자_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60.73486328125,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "2dc58992-0934-46da-ad93-b221c9b7dc01"
+          },
+          {
+            "name": "Patient_Name",
+            "comment": "환자_이름",
+            "dataType": "VARCHAR2(50)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 83.00244140625,
+              "widthComment": 60,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "f643c66e-4522-4412-b591-a7150d5aff36"
+          },
+          {
+            "name": "Patient_Age",
+            "comment": "환자_나이",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 71.240234375,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "7c0db4dc-5c77-433b-bfa1-69b6d204031e"
+          },
+          {
+            "name": "Patient_Gender",
+            "comment": "환자_성별",
+            "dataType": "VARCHAR2(10)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 90.87353515625,
+              "widthComment": 60,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "f91246ef-72e8-4c3d-86e2-326401e3b571"
+          },
+          {
+            "name": "Patient_Address",
+            "comment": "환자_주소",
+            "dataType": "VARCHAR2(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 94.7392578125,
+              "widthComment": 60,
+              "widthDataType": 96.453125,
+              "widthDefault": 60
+            },
+            "id": "944e7068-a23d-4410-b413-349118ac827e"
+          },
+          {
+            "name": "Patient_Phone",
+            "comment": "환자_전화번호",
+            "dataType": "VARCHAR2(20)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 85.103515625,
+              "widthComment": 85.53515625,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "c68257c3-a4d7-4e82-8643-3e367e42ccaa"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 174.3337,
+          "top": 111.9999,
+          "zIndex": 200,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true,
+        "id": "3a99eb5f-7427-4d81-be3a-3d5d75059b18"
+      },
+      {
+        "name": "Disease",
+        "comment": "질병",
+        "columns": [
+          {
+            "name": "Disease_ID",
+            "comment": "질병_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 64.8291015625,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "c3fc5aa9-e82d-4c5b-8fa3-792707bd1f2a"
+          },
+          {
+            "name": "Disease_Name",
+            "comment": "질병명",
+            "dataType": "VARCHAR2(50)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 87.0966796875,
+              "widthComment": 60,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "845c6997-8f9d-4afb-b7d1-0d6c503cf13b"
+          },
+          {
+            "name": "Disease_Definition",
+            "comment": "질병_정의",
+            "dataType": "VARCHAR2(200)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 109.2880859375,
+              "widthComment": 60,
+              "widthDataType": 96.453125,
+              "widthDefault": 60
+            },
+            "id": "8a04895a-596f-41d8-b6b0-a14becd72b2e"
+          },
+          {
+            "name": "Disease_Treatment",
+            "comment": "질병_치료방법",
+            "dataType": "VARCHAR2(200)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 110.71630859375,
+              "widthComment": 85.53515625,
+              "widthDataType": 96.453125,
+              "widthDefault": 60
+            },
+            "id": "193a0198-be34-4c03-be61-aac2827a939f"
+          },
+          {
+            "name": "Disease_Prevention",
+            "comment": "질병_예방방법",
+            "dataType": "VARCHAR2(200)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 114.4931640625,
+              "widthComment": 85.53515625,
+              "widthDataType": 96.453125,
+              "widthDefault": 60
+            },
+            "id": "411af472-2b84-4392-87b8-bb63f1b50c9c"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 167.2223,
+          "top": 799.222,
+          "zIndex": 235,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true,
+        "id": "f8991680-02d2-4edd-9fd5-656aff232140"
+      },
+      {
+        "name": "Hospital",
+        "comment": "병원",
+        "columns": [
+          {
+            "name": "Hospital_ID",
+            "comment": "병원_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 68.65673828125,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "b2fc27a1-9ad7-49fb-97f0-fdaa786d401a"
+          },
+          {
+            "name": "Hospital_Name",
+            "comment": "병원명",
+            "dataType": "VARCHAR2(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 90.92431640625,
+              "widthComment": 60,
+              "widthDataType": 96.453125,
+              "widthDefault": 60
+            },
+            "id": "fdd344c4-3757-459d-b729-658a35905dc3"
+          },
+          {
+            "name": "Hospital_Address",
+            "comment": "병원_주소",
+            "dataType": "VARCHAR2(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 102.6611328125,
+              "widthComment": 60,
+              "widthDataType": 96.453125,
+              "widthDefault": 60
+            },
+            "id": "4b182642-538d-4304-b16f-27f4d5625ab0"
+          },
+          {
+            "name": "Hospital_Phone",
+            "comment": "병원_전화번호",
+            "dataType": "VARCHAR2(20)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 93.025390625,
+              "widthComment": 85.53515625,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "7e7a87c1-04fe-4fb0-b107-d66c6f85f2a3"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 1189.4444,
+          "top": 106.7778,
+          "zIndex": 223,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true,
+        "id": "034ae04e-6ae7-4197-ae3f-d93c2d7bbb7c"
+      },
+      {
+        "name": "Doctor",
+        "comment": "의사",
+        "columns": [
+          {
+            "name": "Doctor_ID",
+            "comment": "의사_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60.3857421875,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "39f6d20f-2b76-41f0-a1c0-8983aa3145c0"
+          },
+          {
+            "name": "Doctor_Name",
+            "comment": "의사_이름",
+            "dataType": "VARCHAR2(50)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 82.6533203125,
+              "widthComment": 60,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "98064cbc-dd31-4c0c-9e44-f73174ab2197"
+          },
+          {
+            "name": "Doctor_Phone",
+            "comment": "의사_전화번호",
+            "dataType": "VARCHAR2(50)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 84.75439453125,
+              "widthComment": 85.53515625,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "6ab4b156-f5e9-4c6d-b6c2-f8d3e34a703b"
+          },
+          {
+            "name": "Doctor_Diag_Fld",
+            "comment": "의사_진료분야",
+            "dataType": "VARCHAR2(50)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 97.70361328125,
+              "widthComment": 85.53515625,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "6ae6790e-d523-4ca5-95bb-266a277cca4e"
+          },
+          {
+            "name": "Hospital_ID",
+            "comment": "병원_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 68.65673828125,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "f83fb751-7e64-4255-bbd2-2d75dc8009a7"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 1197.5558,
+          "top": 416.4439,
+          "zIndex": 179,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true,
+        "id": "df9dcd41-6d1c-482d-b166-5e6be5410d7b"
+      },
+      {
+        "name": "Pharmacy",
+        "comment": "약국",
+        "columns": [
+          {
+            "name": "Pharmacy_ID",
+            "comment": "약국_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 77.39111328125,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "47492279-93cd-4e61-9a4a-db152ac0c2c1"
+          },
+          {
+            "name": "Pharmacy_Name",
+            "comment": "약국명",
+            "dataType": "VARCHAR2(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 99.65869140625,
+              "widthComment": 60,
+              "widthDataType": 96.453125,
+              "widthDefault": 60
+            },
+            "id": "28b60d54-b03a-44a1-b3e9-7a432b27a690"
+          },
+          {
+            "name": "Pharmacy_Address",
+            "comment": "약국_주소",
+            "dataType": "VARCHAR2(100)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 111.3955078125,
+              "widthComment": 60,
+              "widthDataType": 96.453125,
+              "widthDefault": 60
+            },
+            "id": "d18675e9-73bf-4095-9764-09772809c9a2"
+          },
+          {
+            "name": "Pharmacy_Phone",
+            "comment": "약국_전화번호",
+            "dataType": "VARCHAR2(20)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 101.759765625,
+              "widthComment": 85.53515625,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "f7830d4a-2acf-4a19-8a78-958ce775d449"
+          },
+          {
+            "name": "Drug_List",
+            "comment": "약국_약품목록",
+            "dataType": "VARCHAR2(50)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 85.53515625,
+              "widthDataType": 89.29296875,
+              "widthDefault": 60
+            },
+            "id": "2e9085f9-ced7-4418-8cc1-d551cc33968f"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 1210.7782,
+          "top": 787.8876,
+          "zIndex": 237,
+          "widthName": 60,
+          "widthComment": 60
+        },
+        "visible": true,
+        "id": "c0777de8-522b-46ea-bd8b-140e2fb2fdaf"
+      },
+      {
+        "name": "Patient_Disease",
+        "comment": "환자_질병",
+        "columns": [
+          {
+            "name": "Patient_ID",
+            "comment": "환자_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": true,
+              "widthName": 60.73486328125,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "fabe02a7-6476-4c56-a4c6-1b63f4d08dbb"
+          },
+          {
+            "name": "Disease_ID",
+            "comment": "질병_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": true,
+              "widthName": 64.8291015625,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "217f4927-4095-4eb5-bbf3-172e6ee2b8d5"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 215.8887,
+          "top": 480.6668,
+          "zIndex": 216,
+          "widthName": 92.35888671875,
+          "widthComment": 60
+        },
+        "visible": true,
+        "id": "2ed91c4a-55df-471e-a558-24c87570f7ec"
+      },
+      {
+        "name": "Disease_Hospital",
+        "comment": "질병_병원",
+        "columns": [
+          {
+            "name": "Disease_ID",
+            "comment": "질병_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": true,
+              "widthName": 64.8291015625,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "773ee959-c122-4688-a334-ac43647200f0"
+          },
+          {
+            "name": "Hospital_ID",
+            "comment": "병원_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": true,
+              "widthName": 68.65673828125,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "715abaef-4a81-420d-8bdc-f690241855a0"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 732.5556,
+          "top": 305.0001,
+          "zIndex": 228,
+          "widthName": 100.28076171875,
+          "widthComment": 60
+        },
+        "visible": true,
+        "id": "58e8f29d-369c-4875-903c-9f6b165ac560"
+      },
+      {
+        "name": "Disease_Pharmacy",
+        "comment": "질병_약국",
+        "columns": [
+          {
+            "name": "Disease_ID",
+            "comment": "질병_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": true,
+              "widthName": 64.8291015625,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "c8e0fa86-bda9-430f-8ab2-f947b4e5675e"
+          },
+          {
+            "name": "Pharmacy_ID",
+            "comment": "약국_아이디",
+            "dataType": "NUMBER",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": true,
+              "widthName": 77.39111328125,
+              "widthComment": 72.53515625,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "b80d8034-6dc9-4bab-8ae0-a1a105f64b68"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 775.3335,
+          "top": 644.8894,
+          "zIndex": 243,
+          "widthName": 109.01513671875,
+          "widthComment": 60
+        },
+        "visible": true,
+        "id": "df8ad897-de0b-4401-a6cd-715a6ebcd34e"
+      }
+    ],
+    "indexes": []
+  },
+  "memo": {
+    "memos": []
+  },
+  "relationship": {
+    "relationships": [
+      {
+        "identification": false,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "034ae04e-6ae7-4197-ae3f-d93c2d7bbb7c",
+          "columnIds": [
+            "b2fc27a1-9ad7-49fb-97f0-fdaa786d401a"
+          ],
+          "x": 1415.26910703125,
+          "y": 257.7778,
+          "direction": "bottom"
+        },
+        "end": {
+          "tableId": "df9dcd41-6d1c-482d-b166-5e6be5410d7b",
+          "columnIds": [
+            "f83fb751-7e64-4255-bbd2-2d75dc8009a7"
+          ],
+          "x": 1417.321669140625,
+          "y": 416.4439,
+          "direction": "top"
+        },
+        "constraintName": "fk_hospital_to_doctor",
+        "visible": true,
+        "id": "a94b3c24-ac90-4d8b-ab4c-1ea906149800"
+      },
+      {
+        "identification": true,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "3a99eb5f-7427-4d81-be3a-3d5d75059b18",
+          "columnIds": [
+            "2dc58992-0934-46da-ad93-b221c9b7dc01"
+          ],
+          "x": 396.19746953125,
+          "y": 303.9999,
+          "direction": "bottom"
+        },
+        "end": {
+          "tableId": "2ed91c4a-55df-471e-a558-24c87570f7ec",
+          "columnIds": [
+            "fabe02a7-6476-4c56-a4c6-1b63f4d08dbb"
+          ],
+          "x": 398.07082890625,
+          "y": 480.6668,
+          "direction": "top"
+        },
+        "constraintName": "fk_patient_to_patient_disease",
+        "visible": true,
+        "id": "4b78a638-a1d6-4246-93e6-47b4e79362ed"
+      },
+      {
+        "identification": true,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "f8991680-02d2-4edd-9fd5-656aff232140",
+          "columnIds": [
+            "c3fc5aa9-e82d-4c5b-8fa3-792707bd1f2a"
+          ],
+          "x": 398.96302265625,
+          "y": 799.222,
+          "direction": "top"
+        },
+        "end": {
+          "tableId": "2ed91c4a-55df-471e-a558-24c87570f7ec",
+          "columnIds": [
+            "217f4927-4095-4eb5-bbf3-172e6ee2b8d5"
+          ],
+          "x": 398.07082890625,
+          "y": 590.6668,
+          "direction": "bottom"
+        },
+        "constraintName": "fk_disease_to_patient_disease",
+        "visible": true,
+        "id": "8da997f3-44aa-4241-84bd-38da43822881"
+      },
+      {
+        "identification": true,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "f8991680-02d2-4edd-9fd5-656aff232140",
+          "columnIds": [
+            "c3fc5aa9-e82d-4c5b-8fa3-792707bd1f2a"
+          ],
+          "x": 630.7037453125,
+          "y": 927.847,
+          "direction": "right"
+        },
+        "end": {
+          "tableId": "58e8f29d-369c-4875-903c-9f6b165ac560",
+          "columnIds": [
+            "773ee959-c122-4688-a334-ac43647200f0"
+          ],
+          "x": 732.5556,
+          "y": 360.0001,
+          "direction": "left"
+        },
+        "constraintName": "fk_disease_to_disease_hospital",
+        "visible": true,
+        "id": "debfdeb6-d511-4442-a867-4cfd5fb18158"
+      },
+      {
+        "identification": true,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "034ae04e-6ae7-4197-ae3f-d93c2d7bbb7c",
+          "columnIds": [
+            "b2fc27a1-9ad7-49fb-97f0-fdaa786d401a"
+          ],
+          "x": 1189.4444,
+          "y": 182.2778,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "58e8f29d-369c-4875-903c-9f6b165ac560",
+          "columnIds": [
+            "715abaef-4a81-420d-8bdc-f690241855a0"
+          ],
+          "x": 1100.7474945312501,
+          "y": 360.0001,
+          "direction": "right"
+        },
+        "constraintName": "fk_hospital_to_disease_hospital",
+        "visible": true,
+        "id": "b9686ac4-887f-4be2-a921-10eccaf7cd71"
+      },
+      {
+        "identification": true,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "f8991680-02d2-4edd-9fd5-656aff232140",
+          "columnIds": [
+            "c3fc5aa9-e82d-4c5b-8fa3-792707bd1f2a"
+          ],
+          "x": 630.7037453125,
+          "y": 842.097,
+          "direction": "right"
+        },
+        "end": {
+          "tableId": "df8ad897-de0b-4401-a6cd-715a6ebcd34e",
+          "columnIds": [
+            "c8e0fa86-bda9-430f-8ab2-f947b4e5675e"
+          ],
+          "x": 775.3335,
+          "y": 699.8894,
+          "direction": "left"
+        },
+        "constraintName": "fk_disease_to_disease_pharmacy",
+        "visible": true,
+        "id": "b891121d-16d3-4948-b950-8855ed813e5a"
+      },
+      {
+        "identification": true,
+        "relationshipType": "OneN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "c0777de8-522b-46ea-bd8b-140e2fb2fdaf",
+          "columnIds": [
+            "47492279-93cd-4e61-9a4a-db152ac0c2c1"
+          ],
+          "x": 1210.7782,
+          "y": 873.6376,
+          "direction": "left"
+        },
+        "end": {
+          "tableId": "df8ad897-de0b-4401-a6cd-715a6ebcd34e",
+          "columnIds": [
+            "b80d8034-6dc9-4bab-8ae0-a1a105f64b68"
+          ],
+          "x": 1152.25976953125,
+          "y": 699.8894,
+          "direction": "right"
+        },
+        "constraintName": "fk_pharmacy_to_disease_pharmacy",
+        "visible": true,
+        "id": "2c5a6286-b96c-4e41-af15-fe4e0eb66ccd"
+      }
+    ]
+  }
+}
